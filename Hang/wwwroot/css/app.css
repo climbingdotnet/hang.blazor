@@ -1,0 +1,77 @@
+﻿@import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
+html, body, app {
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    color: white;
+    height: 100%
+}
+
+a, .btn-link {
+    color: #0366d6;
+}
+
+.btn-primary {
+    width: 100%;
+    color: #fff;
+    background-color: #977c9c;
+    border-color: #977c9c;
+}
+
+.btn-primary:hover, .btn-primary:active {
+    color: #fff !important;
+    background-color: #86668c !important;
+    border-color: #86668c !important;
+}
+
+.btn-primary:focus {
+    box-shadow: 0 0 0 0.2rem #210f25;
+}
+
+.align-center {
+    text-align: center;
+}
+
+app {
+    display: flex;
+    align-items: center;
+    background-color: #53255b;
+}
+
+.main {
+    width:100%;
+}
+.row {
+    margin-bottom: 1em;
+}
+
+@media (min-width: 768px) {
+    app {
+        flex-direction: row;
+    }
+
+    .sidebar {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .main .top-row {
+        position: sticky;
+        top: 0;
+    }
+
+    .main > div {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+
+    .navbar-toggler {
+        display: none;
+    }
+
+    .sidebar .collapse {
+        /* Never collapse the sidebar for wide screens */
+        display: block;
+    }
+}

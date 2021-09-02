@@ -1,0 +1,68 @@
+﻿@page "/"
+
+@using Hang.ViewModels.Interface
+
+@inject IIndexViewModel indexViewModel
+
+@if (indexViewModel.Hanging)
+{
+    <Clock HangSeconds="@indexViewModel.HangSeconds" RestSeconds="@indexViewModel.RestSeconds" Reps="@indexViewModel.Reps" />
+    <div class="row justify-content-sm-center">
+        <div class="col-md-2 col-sm-6">
+            <button class="btn btn-primary" @onclick="StopHang">Go Back</button>
+        </div>
+    </div>
+}
+else
+{
+    <div class="row justify-content-sm-center">
+        <div class="col-md-2 col-sm-4">
+            <label>Hang</label>
+            <input class="form-control input-seconds" min="0" type="number" @bind="indexViewModel.HangSeconds" />
+        </div>
+
+        <div class="col-md-2 col-sm-4">
+            <label>Rest</label>
+            <input class="form-control input-seconds" min="0" type="number" @bind="indexViewModel.RestSeconds" />
+        </div>
+
+        <div class="col-md-2 col-sm-4">
+            <label>Reps</label>
+            <input class="form-control input-reps" min="0" type="number" @bind="indexViewModel.Reps" />
+        </div>
+    </div>
+
+    <div class="row justify-content-sm-center">
+
+        <div class="col-md-6 col-sm-12">
+            <button class="btn btn-primary" @onclick="StartHang">Hang</button>
+        </div>
+    </div>
+    <div class="row justify-content-sm-center">
+
+        <div class="col-md-6 col-sm-12">
+            <p class="alert-danger">@indexViewModel.ErrorMessage</p>
+        </div>
+    </div>
+
+}
+
+@code {
+    private void StartHang()
+    {
+        if (indexViewModel.IsValid())
+        {
+            this.indexViewModel.Hanging = true;
+            this.indexViewModel.ErrorMessage = string.Empty;
+        }
+        else
+        {
+            this.indexViewModel.ErrorMessage = "Invalid Hang input!";
+        }
+    }
+
+    private void StopHang()
+    {
+        this.indexViewModel.Hanging = false;
+    }
+}

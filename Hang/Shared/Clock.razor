@@ -1,0 +1,48 @@
+﻿@using Hang.ViewModels.Interface
+
+@inject IClockViewModel clockViewModel
+
+<div class="row justify-content-sm-center">
+    <div class="col-md-2 col-sm-6">
+        <h1 class="align-center">@clockViewModel.Action</h1>
+        <h2 class="align-center">@clockViewModel.ActionTime.ToString(@"mm\:ss\.f")</h2>
+    </div>
+</div>
+
+<div class="row justify-content-sm-center">
+    <div class="col-md-2 col-sm-6">
+        <p class="align-center">Reps: @clockViewModel.Rep/@Reps</p>
+        <p class="align-center">Time Remaining @clockViewModel.TimeRemaining.ToString(@"mm\:ss\.f")</p>
+
+        @if (clockViewModel.TimeRemaining.TotalSeconds <= TimeSpan.FromSeconds(0).TotalSeconds)
+        {
+            <button class="btn btn-primary" @onclick="Restart">Restart</button>
+        }
+    </div>
+</div>
+
+<audio id="player">
+    <source id="playerSource" src="" />
+</audio>
+
+@code {
+    [Parameter]
+    public int HangSeconds { get; set; }
+    [Parameter]
+    public int RestSeconds { get; set; }
+    [Parameter]
+    public int Reps { get; set; }
+
+    private void Restart()
+    {
+        clockViewModel.RunClock();
+    }
+
+    protected override void OnInitialized()
+    {
+        clockViewModel.OnInit(HangSeconds, RestSeconds, Reps);
+        clockViewModel.PropertyChanged += (o, e) => StateHasChanged();
+
+        base.OnInitialized();
+    }
+}
